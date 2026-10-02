@@ -1,0 +1,202 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 1060" width="780" height="1060" font-family="-apple-system, 'Segoe UI', system-ui, sans-serif">
+
+  <!-- ── Background ── -->
+  <rect width="780" height="1060" fill="#ffffff"/>
+
+  <!-- ══════════════════════════════════════════════
+       TITLE BLOCK
+  ══════════════════════════════════════════════ -->
+  <text x="390" y="38" text-anchor="middle" font-size="17" font-weight="700" fill="#1f2328">Business Process Bottleneck Detector</text>
+  <text x="390" y="57" text-anchor="middle" font-size="11.5" fill="#57606a">System Architecture · IBM Hackathon Prototype · Runs Locally</text>
+  <line x1="40" y1="68" x2="740" y2="68" stroke="#e5e7eb" stroke-width="1"/>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION LABELS (left-side verticals)
+  ══════════════════════════════════════════════ -->
+
+  <!-- DATA label -->
+  <rect x="18" y="84" width="14" height="102" rx="3" fill="#f0f6ff"/>
+  <text x="25" y="87" text-anchor="middle" font-size="9" font-weight="700" fill="#3b82d4" transform="rotate(90,25,87) translate(0,-38)">DATA</text>
+
+  <!-- FRONTEND label -->
+  <rect x="18" y="198" width="14" height="398" rx="3" fill="#f0fdf4"/>
+  <text x="25" y="201" text-anchor="middle" font-size="9" font-weight="700" fill="#16a34a" transform="rotate(90,25,201) translate(0,-122)">FRONTEND</text>
+
+  <!-- LANGFLOW label -->
+  <rect x="18" y="608" width="14" height="220" rx="3" fill="#fdf4ff"/>
+  <text x="25" y="611" text-anchor="middle" font-size="9" font-weight="700" fill="#7c3aed" transform="rotate(90,25,611) translate(0,-70)">LANGFLOW</text>
+
+  <!-- AI MODEL label -->
+  <rect x="18" y="840" width="14" height="110" rx="3" fill="#fff7ed"/>
+  <text x="25" y="843" text-anchor="middle" font-size="9" font-weight="700" fill="#ea580c" transform="rotate(90,25,843) translate(0,-28)">AI MODEL</text>
+
+  <!-- ══════════════════════════════════════════════
+       ROW 1 — USER
+  ══════════════════════════════════════════════ -->
+  <!-- User icon circle -->
+  <circle cx="390" cy="105" r="22" fill="#f7f8fa" stroke="#e5e7eb" stroke-width="1.5"/>
+  <circle cx="390" cy="98" r="8" fill="#57606a"/>
+  <path d="M370 120 Q390 110 410 120" fill="#57606a"/>
+  <text x="390" y="140" text-anchor="middle" font-size="11.5" font-weight="600" fill="#1f2328">User</text>
+  <text x="390" y="154" text-anchor="middle" font-size="10" fill="#57606a">Uploads CSV · Clicks Analyze Process</text>
+
+  <!-- Arrow down -->
+  <line x1="390" y1="162" x2="390" y2="186" stroke="#c8cdd3" stroke-width="1.5"/>
+  <polygon points="390,190 385,182 395,182" fill="#c8cdd3"/>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION: FRONTEND (outer card)
+  ══════════════════════════════════════════════ -->
+  <rect x="44" y="196" width="692" height="396" rx="8" fill="#f9fffe" stroke="#86efac" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="64" y="215" font-size="10" font-weight="700" fill="#16a34a">Frontend  ·  index.html + styles.css + script.js</text>
+
+  <!-- ── SUB-BOX A: CSV Upload & Parse ── -->
+  <rect x="62" y="224" width="296" height="82" rx="6" fill="#ffffff" stroke="#d1fae5" stroke-width="1.2"/>
+  <text x="210" y="244" text-anchor="middle" font-size="11" font-weight="700" fill="#1f2328">CSV Upload &amp; Parsing</text>
+  <text x="210" y="261" text-anchor="middle" font-size="9.5" fill="#57606a">Browser FileReader API</text>
+  <text x="210" y="275" text-anchor="middle" font-size="9" fill="#57606a">Validates columns · Parses rows</text>
+  <text x="210" y="289" text-anchor="middle" font-size="9" fill="#57606a">flowlens_metrics_v1.csv  (synthetic, 150 orders)</text>
+
+  <!-- ── SUB-BOX B: Metrics Preparation ── -->
+  <rect x="422" y="224" width="296" height="82" rx="6" fill="#ffffff" stroke="#d1fae5" stroke-width="1.2"/>
+  <text x="570" y="244" text-anchor="middle" font-size="11" font-weight="700" fill="#1f2328">Metrics Preparation</text>
+  <text x="570" y="261" text-anchor="middle" font-size="9.5" fill="#57606a">script.js  ·  analyzeProcess()</text>
+  <text x="570" y="275" text-anchor="middle" font-size="9" fill="#57606a">Sorts by bottleneck score · Builds JSON payload</text>
+  <text x="570" y="289" text-anchor="middle" font-size="9" fill="#57606a">All 8 metrics per activity · crypto.randomUUID()</text>
+
+  <!-- Arrow A → B (horizontal inside frontend) -->
+  <line x1="358" y1="265" x2="418" y2="265" stroke="#86efac" stroke-width="1.5"/>
+  <polygon points="422,265 413,260 413,270" fill="#86efac"/>
+
+  <!-- ── SUB-BOX C: Local Score Display ── -->
+  <rect x="62" y="338" width="296" height="76" rx="6" fill="#ffffff" stroke="#d1fae5" stroke-width="1.2"/>
+  <text x="210" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#1f2328">Local Bottleneck Score Display</text>
+  <text x="210" y="374" text-anchor="middle" font-size="9.5" fill="#57606a">renderResult()  ·  Bottleneck hero card</text>
+  <text x="210" y="388" text-anchor="middle" font-size="9" fill="#57606a">Evidence metrics · Comparison · Recommendations</text>
+  <text x="210" y="402" text-anchor="middle" font-size="9" fill="#57606a">Computed entirely in JavaScript (no AI needed)</text>
+
+  <!-- Arrow A → C (down inside frontend) -->
+  <line x1="210" y1="306" x2="210" y2="334" stroke="#86efac" stroke-width="1.5"/>
+  <polygon points="210,338 205,330 215,330" fill="#86efac"/>
+
+  <!-- ── SUB-BOX D: AI Analysis Display ── -->
+  <rect x="422" y="338" width="296" height="76" rx="6" fill="#f0f6ff" stroke="#bfdbfe" stroke-width="1.2"/>
+  <text x="570" y="358" text-anchor="middle" font-size="11" font-weight="700" fill="#1f2328">AI Analysis Display</text>
+  <text x="570" y="374" text-anchor="middle" font-size="9.5" fill="#57606a">renderResult()  ·  #r-ai-analysis-section</text>
+  <text x="570" y="388" text-anchor="middle" font-size="9" fill="#57606a">Badge: "AI Analysis: Langflow + Gemini"</text>
+  <text x="570" y="402" text-anchor="middle" font-size="9" fill="#57606a">Falls back to "Local fallback" if unreachable</text>
+
+  <!-- Arrow B → D (down inside frontend) -->
+  <line x1="570" y1="306" x2="570" y2="334" stroke="#bfdbfe" stroke-width="1.5"/>
+  <polygon points="570,338 565,330 575,330" fill="#bfdbfe"/>
+
+  <!-- ── config note ── -->
+  <rect x="62" y="434" width="656" height="30" rx="5" fill="#fafafa" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="390" y="449" text-anchor="middle" font-size="9.5" fill="#57606a">
+    <tspan font-weight="600" fill="#1f2328">config.local.js</tspan>
+    <tspan>  ·  sets window.LANGFLOW_API_KEY  ·  loaded before script.js  ·  excluded from Git via .gitignore</tspan>
+  </text>
+  <text x="390" y="460" text-anchor="middle" font-size="9" fill="#57606a">Endpoint: http://127.0.0.1:7860/api/v1/run/{flow-id}  ·  POST  ·  x-api-key header  ·  Content-Type: application/json</text>
+
+  <!-- Arrow: Metrics Prep → Langflow REST API (leaving frontend) -->
+  <line x1="570" y1="470" x2="570" y2="510" stroke="#a78bfa" stroke-width="1.5"/>
+  <line x1="570" y1="510" x2="390" y2="510" stroke="#a78bfa" stroke-width="1.5"/>
+  <line x1="390" y1="510" x2="390" y2="530" stroke="#a78bfa" stroke-width="1.5"/>
+  <polygon points="390,534 385,526 395,526" fill="#a78bfa"/>
+  <text x="510" y="504" text-anchor="middle" font-size="9" fill="#7c3aed">POST /api/v1/run · JSON payload</text>
+
+  <!-- ══════════════════════════════════════════════
+       SECTION: LANGFLOW (outer card)
+  ══════════════════════════════════════════════ -->
+  <rect x="44" y="538" width="692" height="288" rx="8" fill="#fdf4ff" stroke="#d8b4fe" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="64" y="557" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">Langflow  ·  localhost:7860  ·  Bottleneck Analyzer Flow</text>
+
+  <!-- ── Langflow node: Chat Input ── -->
+  <rect x="62" y="566" width="140" height="58" rx="6" fill="#ffffff" stroke="#e9d5ff" stroke-width="1.2"/>
+  <text x="132" y="590" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2328">Chat Input</text>
+  <text x="132" y="606" text-anchor="middle" font-size="9" fill="#57606a">Receives JSON</text>
+  <text x="132" y="618" text-anchor="middle" font-size="9" fill="#57606a">metrics string</text>
+
+  <!-- Arrow Chat Input → Prompt Template -->
+  <line x1="202" y1="595" x2="250" y2="595" stroke="#d8b4fe" stroke-width="1.5"/>
+  <polygon points="254,595 245,590 245,600" fill="#d8b4fe"/>
+
+  <!-- ── Langflow node: Prompt Template ── -->
+  <rect x="254" y="566" width="152" height="58" rx="6" fill="#ffffff" stroke="#e9d5ff" stroke-width="1.2"/>
+  <text x="330" y="590" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2328">Prompt Template</text>
+  <text x="330" y="606" text-anchor="middle" font-size="9" fill="#57606a">Analysis rules + context</text>
+  <text x="330" y="618" text-anchor="middle" font-size="9" fill="#57606a">Structures the LLM request</text>
+
+  <!-- Arrow Prompt Template → Gemini -->
+  <line x1="406" y1="595" x2="454" y2="595" stroke="#d8b4fe" stroke-width="1.5"/>
+  <polygon points="458,595 449,590 449,600" fill="#d8b4fe"/>
+
+  <!-- ── Langflow node: Gemini (inside Langflow box) ── -->
+  <rect x="458" y="566" width="152" height="58" rx="6" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.2"/>
+  <text x="534" y="590" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2328">Gemini 3.5 Flash Lite</text>
+  <text x="534" y="606" text-anchor="middle" font-size="9" fill="#57606a">Language model</text>
+  <text x="534" y="618" text-anchor="middle" font-size="9" fill="#57606a">Generates analysis text</text>
+
+  <!-- Arrow Gemini → Chat Output -->
+  <line x1="610" y1="595" x2="634" y2="595" stroke="#d8b4fe" stroke-width="1.5"/>
+  <polygon points="638,595 629,590 629,600" fill="#d8b4fe"/>
+
+  <!-- ── Langflow node: Chat Output ── -->
+  <rect x="638" y="566" width="84" height="58" rx="6" fill="#ffffff" stroke="#e9d5ff" stroke-width="1.2"/>
+  <text x="680" y="590" text-anchor="middle" font-size="10.5" font-weight="700" fill="#1f2328">Chat Output</text>
+  <text x="680" y="606" text-anchor="middle" font-size="9" fill="#57606a">Wraps response</text>
+  <text x="680" y="618" text-anchor="middle" font-size="9" fill="#57606a">JSON envelope</text>
+
+  <!-- ── Response path note ── -->
+  <rect x="62" y="648" width="656" height="32" rx="5" fill="#fafafa" stroke="#e9d5ff" stroke-width="1"/>
+  <text x="390" y="662" text-anchor="middle" font-size="9.5" fill="#57606a">
+    <tspan font-weight="600" fill="#1f2328">Response path extracted by script.js:</tspan>
+    <tspan>  outputs[0].outputs[0].results.message.text</tspan>
+  </text>
+  <text x="390" y="674" text-anchor="middle" font-size="9" fill="#57606a">Fallback paths: messages[0].message  ·  artifacts.message</text>
+
+  <!-- ── Langflow REST API label ── -->
+  <rect x="62" y="696" width="656" height="116" rx="6" fill="#faf5ff" stroke="#e9d5ff" stroke-width="1"/>
+  <text x="390" y="715" text-anchor="middle" font-size="10" font-weight="700" fill="#7c3aed">Langflow REST API Layer</text>
+  <text x="390" y="733" text-anchor="middle" font-size="9.5" fill="#57606a">Manages flow execution · Handles session isolation (session_id per request)</text>
+  <text x="390" y="749" text-anchor="middle" font-size="9.5" fill="#57606a">No database · No persistence between sessions · Stateless request/response</text>
+  <text x="390" y="765" text-anchor="middle" font-size="9" fill="#57606a">Langflow runs on localhost — not deployed to cloud or any external server</text>
+  <text x="390" y="781" text-anchor="middle" font-size="9" fill="#57606a">No paid hosting · No paid API · Free Gemini model tier used in prototype</text>
+  <text x="390" y="797" text-anchor="middle" font-size="9" fill="#57606a">HTTP 4xx / network error → caught by try/catch → "AI Analysis: Local fallback" displayed</text>
+
+  <!-- Arrow: Langflow response → Frontend AI Display -->
+  <line x1="390" y1="534" x2="390" y2="476" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="390,472 385,480 395,480" fill="#a78bfa"/>
+  <text x="430" y="498" font-size="9" fill="#7c3aed">AI analysis text</text>
+
+  <!-- ══════════════════════════════════════════════
+       LEGEND
+  ══════════════════════════════════════════════ -->
+  <rect x="44" y="965" width="692" height="76" rx="6" fill="#f7f8fa" stroke="#e5e7eb" stroke-width="1"/>
+  <text x="390" y="982" text-anchor="middle" font-size="10" font-weight="700" fill="#1f2328">Legend</text>
+
+  <!-- solid arrow -->
+  <line x1="70" y1="1000" x2="110" y2="1000" stroke="#c8cdd3" stroke-width="1.5"/>
+  <polygon points="113,1000 105,996 105,1004" fill="#c8cdd3"/>
+  <text x="120" y="1003" font-size="9.5" fill="#57606a">Request / data flow</text>
+
+  <!-- dashed arrow -->
+  <line x1="240" y1="1000" x2="280" y2="1000" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="283,1000 275,996 275,1004" fill="#a78bfa"/>
+  <text x="292" y="1003" font-size="9.5" fill="#57606a">AI response (async)</text>
+
+  <!-- frontend swatch -->
+  <rect x="420" y="993" width="12" height="12" rx="2" fill="#f9fffe" stroke="#86efac" stroke-width="1.2"/>
+  <text x="438" y="1003" font-size="9.5" fill="#57606a">Frontend layer</text>
+
+  <!-- langflow swatch -->
+  <rect x="535" y="993" width="12" height="12" rx="2" fill="#fdf4ff" stroke="#d8b4fe" stroke-width="1.2"/>
+  <text x="553" y="1003" font-size="9.5" fill="#57606a">Langflow layer</text>
+
+  <!-- ai swatch -->
+  <rect x="640" y="993" width="12" height="12" rx="2" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.2"/>
+  <text x="658" y="1003" font-size="9.5" fill="#57606a">AI model</text>
+
+  <text x="390" y="1030" text-anchor="middle" font-size="9" fill="#c8cdd3">Business Process Bottleneck Detector · IBM Hackathon Prototype</text>
+
+</svg>

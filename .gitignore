@@ -1,0 +1,15 @@
+﻿# Local credentials and secrets
+config.local.js
+.env
+.env.*
+!.env.example
+
+# Dependencies and generated files
+node_modules/
+dist/
+build/
+
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+.vscode/

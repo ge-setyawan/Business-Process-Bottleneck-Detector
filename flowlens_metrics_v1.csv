@@ -1,0 +1,6 @@
+Activity,avg_processing_min,avg_waiting_min,delay_rework_rate,rework_rate,volume_time_corr,controllability,bottleneck_score
+Packing,29.0733,15.06,0.213333,0.1,0.732066,1.0,75.0413
+Shipping,1438.79,,,,,0.2,54.8905
+Quality Check,18.5,5.2,0.08,0.03,0.45,0.8,38.21
+Receiving,12.3,2.1,0.04,0.01,0.31,0.9,21.55
+Assembly,45.6,8.9,0.15,0.06,0.61,0.85,62.34

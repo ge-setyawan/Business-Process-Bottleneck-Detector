@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Business Process Bottleneck Detector</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner container">
+      <div class="header-brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="28" height="28" rx="6" fill="#3b82d4"/>
+            <rect x="5" y="16" width="4" height="7" rx="1" fill="white"/>
+            <rect x="12" y="11" width="4" height="12" rx="1" fill="white"/>
+            <rect x="19" y="7" width="4" height="16" rx="1" fill="white" opacity="0.5"/>
+            <circle cx="21" cy="6" r="2.5" fill="#f97316"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="brand-title">Business Process<br>Bottleneck Detector</h1>
+          <p class="brand-subtitle">Don't just find what's slow. Find what needs fixing.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-content">
+
+    <!-- INPUT SECTION -->
+    <section class="card input-card" aria-label="Process Data Input">
+      <div class="card-header">
+        <h2 class="card-title">Process Data</h2>
+        <p class="card-helper">Upload process metrics to identify the most actionable bottleneck.</p>
+      </div>
+      <div class="input-row">
+        <label class="file-label" for="csvFile">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 13V3a1 1 0 0 1 1-1h6.586a1 1 0 0 1 .707.293l3.414 3.414A1 1 0 0 1 14 6.414V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1Z" stroke="#57606a" stroke-width="1.3"/><path d="M9 2v4h4" stroke="#57606a" stroke-width="1.3"/></svg>
+          <span id="fileNameDisplay">Choose CSV file…</span>
+          <input type="file" id="csvFile" accept=".csv" class="visually-hidden" aria-label="Upload CSV file"/>
+        </label>
+        <button id="analyzeBtn" class="btn-primary" onclick="handleAnalyze()">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true"><circle cx="7.5" cy="7.5" r="6.5" stroke="white" stroke-width="1.4"/><path d="M7.5 4v3.5l2 2" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
+          Analyze Process
+        </button>
+      </div>
+      <p id="inputNote" class="input-note">No file selected? Sample process data will be used for analysis.</p>
+    </section>
+
+    <!-- RESULT SECTION -->
+    <section id="resultSection" aria-live="polite" aria-label="Analysis Results">
+
+      <!-- EMPTY STATE -->
+      <div id="emptyState" class="empty-state">
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" aria-hidden="true"><circle cx="22" cy="22" r="21" stroke="#e5e7eb" stroke-width="2"/><path d="M14 30 L22 14 L30 30" stroke="#c8cdd3" stroke-width="2" stroke-linejoin="round"/><circle cx="22" cy="26" r="1.5" fill="#c8cdd3"/></svg>
+        <p>No analysis yet</p>
+        <span>Upload a CSV file or click "Analyze Process" to begin.</span>
+      </div>
+
+      <!-- ERROR STATE -->
+      <div id="errorState" class="error-state hidden" role="alert">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9" stroke="#dc2626" stroke-width="1.5"/><path d="M10 6v5" stroke="#dc2626" stroke-width="1.6" stroke-linecap="round"/><circle cx="10" cy="14" r="1" fill="#dc2626"/></svg>
+        <div>
+          <strong>Could not process file</strong>
+          <p id="errorMessage"></p>
+        </div>
+      </div>
+
+      <!-- LOADING STATE -->
+      <div id="loadingState" class="loading-state hidden">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Analyzing process data…</p>
+      </div>
+
+      <!-- ANALYSIS OUTPUT — all values populated by script.js -->
+      <div id="analysisOutput" class="hidden">
+
+        <!-- PRIORITY BOTTLENECK -->
+        <div class="bottleneck-hero card">
+          <div class="bottleneck-label">Priority Bottleneck</div>
+          <div id="r-process-name" class="bottleneck-process">—</div>
+          <div class="bottleneck-score-row">
+            <div class="score-block">
+              <span id="r-score-value" class="score-value">—</span>
+              <span class="score-label">Bottleneck Score</span>
+            </div>
+            <div id="r-score-bar-wrap" class="score-bar-wrap" aria-label="Bottleneck score">
+              <div class="score-bar"><div id="r-score-bar-fill" class="score-fill" style="width:0%"></div></div>
+              <span class="score-bar-note">out of 100</span>
+            </div>
+          </div>
+          <p id="r-bottleneck-insight" class="bottleneck-insight"></p>
+        </div>
+
+        <!-- EVIDENCE METRICS -->
+        <div class="section-heading">
+          <h3>Evidence</h3>
+          <span class="section-sub">Key metrics for the priority bottleneck</span>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-value"><span id="r-processing">—</span></span>
+            <span class="metric-label">Avg Processing Time</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value"><span id="r-waiting">—</span></span>
+            <span class="metric-label">Avg Waiting Time</span>
+          </div>
+          <div id="r-card-delay-rework" class="metric-card">
+            <span class="metric-value"><span id="r-delay-rework">—</span></span>
+            <span class="metric-label">Delay / Rework Rate</span>
+          </div>
+          <div id="r-card-rework" class="metric-card">
+            <span class="metric-value"><span id="r-rework">—</span></span>
+            <span class="metric-label">Rework Rate</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value"><span id="r-vol-corr">—</span></span>
+            <span class="metric-label">Volume–Time Correlation</span>
+          </div>
+          <div id="r-card-ctrl" class="metric-card">
+            <span class="metric-value"><span id="r-controllability">—</span></span>
+            <span class="metric-label">Controllability</span>
+          </div>
+        </div>
+
+        <!-- COMPARISON -->
+        <div class="section-heading">
+          <h3>Process Comparison</h3>
+          <span class="section-sub">Why the slowest process is not always the priority</span>
+        </div>
+        <div class="comparison-grid">
+          <!-- Priority card -->
+          <div class="comparison-card comparison-winner">
+            <div class="comparison-badge">Priority</div>
+            <div id="r-cmp-priority-name" class="comparison-name">—</div>
+            <ul class="comparison-metrics">
+              <li><span class="cmp-key">Score</span><span id="r-cmp-priority-score" class="cmp-val highlight">—</span></li>
+              <li><span class="cmp-key">Avg Processing</span><span id="r-cmp-priority-proc" class="cmp-val">—</span></li>
+              <li><span class="cmp-key">Controllability</span><span id="r-cmp-priority-ctrl" class="cmp-val highlight">—</span></li>
+            </ul>
+          </div>
+          <!-- Runner-up card (hidden if only one process) -->
+          <div id="r-cmp-runnerup-card" class="comparison-card hidden">
+            <div class="comparison-badge secondary">Runner-up</div>
+            <div id="r-cmp-runnerup-name" class="comparison-name">—</div>
+            <ul class="comparison-metrics">
+              <li><span class="cmp-key">Score</span><span id="r-cmp-runnerup-score" class="cmp-val">—</span></li>
+              <li><span class="cmp-key">Avg Processing</span><span id="r-cmp-runnerup-proc" class="cmp-val muted">—</span></li>
+              <li><span class="cmp-key">Controllability</span><span id="r-cmp-runnerup-ctrl" class="cmp-val muted">—</span></li>
+            </ul>
+          </div>
+          <!-- Shown only if dataset has a single process -->
+          <div id="r-cmp-no-runnerup" class="comparison-card hidden">
+            <div class="comparison-badge secondary">No other processes</div>
+            <p class="comparison-name" style="font-size:.85rem;font-weight:400;color:var(--muted)">
+              Upload a dataset with multiple processes to see a comparison.
+            </p>
+          </div>
+        </div>
+        <div class="insight-box">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#3b82d4" stroke-width="1.4"/><path d="M8 7v4" stroke="#3b82d4" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="5" r="0.8" fill="#3b82d4"/></svg>
+          <span id="r-comparison-insight"></span>
+        </div>
+
+        <!-- POSSIBLE CAUSES -->
+        <div class="section-heading">
+          <h3>Possible Causes</h3>
+        </div>
+        <div class="causes-grid">
+          <div class="causes-card">
+            <h4 class="causes-heading">Evidence</h4>
+            <ul class="causes-list">
+              <li id="r-evidence-waiting"></li>
+              <li id="r-evidence-delay"></li>
+              <li id="r-evidence-rework"></li>
+              <li id="r-evidence-volcorr"></li>
+            </ul>
+          </div>
+          <div class="causes-card causes-hypothesis">
+            <h4 class="causes-heading">
+              Hypotheses
+              <span class="hypothesis-tag">Unverified</span>
+            </h4>
+            <ul class="causes-list">
+              <li>Workload fluctuations may contribute to increased processing time.</li>
+              <li>Queuing or handoff delays may contribute to the observed waiting time.</li>
+              <li>Execution consistency may vary during higher-volume periods.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- BUSINESS IMPACT -->
+        <div class="section-heading">
+          <h3>Business Impact</h3>
+        </div>
+        <div class="notice-card notice-neutral">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" stroke="#57606a" stroke-width="1.4"/><path d="M8 7v4" stroke="#57606a" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="5" r="0.8" fill="#57606a"/></svg>
+          The provided data is insufficient to determine the specific financial or customer-facing business impact.
+        </div>
+
+        <!-- RECOMMENDATIONS -->
+        <div class="section-heading">
+          <h3>Recommendations</h3>
+          <span id="r-rec-subheading" class="section-sub"></span>
+        </div>
+        <ol id="r-recommendations-list" class="recommendations-list">
+          <!-- Populated by script.js -->
+        </ol>
+
+        <!-- PROCESS ANALYSIS (AI / Langflow) -->
+        <div id="r-ai-analysis-section" class="hidden">
+          <div class="section-heading">
+            <h3>Process Analysis</h3>
+            <span id="r-ai-status-badge" class="ai-status-badge"></span>
+          </div>
+          <div id="r-ai-analysis" class="ai-analysis-card">
+            <p id="r-ai-analysis-text" class="ai-analysis-text"></p>
+          </div>
+        </div>
+
+        <!-- DATA LIMITATIONS -->
+        <div class="section-heading">
+          <h3>Data Limitations</h3>
+        </div>
+        <div class="notice-card notice-warn">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 2L14.5 13.5H1.5L8 2Z" stroke="#b45309" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 7v3" stroke="#b45309" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r="0.8" fill="#b45309"/></svg>
+          The dataset does not contain qualitative root-cause information, cost metrics, customer impact data, or detailed resource-capacity information. Recommendations are based solely on the available quantitative metrics.
+        </div>
+
+        <!-- ANALYSIS STATUS FOOTER -->
+        <div class="analysis-footer">
+          <span class="status-dot"></span>
+          <span id="r-analysis-source"></span>
+        </div>
+
+      </div><!-- /analysisOutput -->
+    </section>
+
+  </main>
+
+  <!-- Load local API key config before main script. config.local.js is gitignored. -->
+  <script src="config.local.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
